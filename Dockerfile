@@ -55,9 +55,11 @@ RUN apt-get update && \
 # FreeTDS 설정
 RUN echo "[FreeTDS]" > /etc/odbcinst.ini && \
     echo "Description = FreeTDS Driver" >> /etc/odbcinst.ini && \
-    echo "Driver = /usr/lib/aarch64-linux-gnu/odbc/libtdsodbc.so" >> /etc/odbcinst.ini && \
-    echo "Setup = /usr/lib/aarch64-linux-gnu/odbc/libtdsS.so" >> /etc/odbcinst.ini && \
-    echo "UsageCount = 1" >> /etc/odbcinst.ini
+    echo "Driver = /usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so" >> /etc/odbcinst.ini && \
+    echo "Setup = /usr/lib/x86_64-linux-gnu/odbc/libtdsS.so" >> /etc/odbcinst.ini && \
+    echo "UsageCount = 1" >> /etc/odbcinst.ini && \
+    # 드라이버 파일 존재 여부 확인
+    ls -l /usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so || echo "Driver file not found"
 
 # OpenSSL 설정을 변경하여 TLS 1.0 지원 활성화
 # Ubuntu 18.04의 OpenSSL 1.1.1은 TLS 1.0을 지원하지만, 기본 보안 수준(SECLEVEL=2)에서 비활성화될 수 있음
